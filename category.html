@@ -54,12 +54,8 @@
                 const categoryName = params.get('name') || 'Products';
                 document.getElementById('categoryTitle').textContent = categoryName;
 
-                let endpoint = 'http://localhost:3000/api/products';
-                if (categoryName.includes('Daily Use') || categoryName.includes('Kitchen')) {
-                    endpoint = 'http://localhost:3000/api/products/type/cookware';
-                } else if (categoryName.includes('Pooja') || categoryName.includes('Decor') || categoryName.includes('Gifting')) {
-                    endpoint = 'http://localhost:3000/api/products/type/statue';
-                }
+                // Fetch products for this category
+                const endpoint = `http://localhost:3000/api/products/category/${encodeURIComponent(categoryName)}`;
 
                 fetch(endpoint)
                     .then(res => res.json())
@@ -70,47 +66,14 @@
                  <div class="product-card" style="padding:20px; border:1px solid rgba(212, 175, 55, 0.2);">
                    <div class="product-info">
                      <h3 style="color:#d4af37; margin-bottom:5px;">${item.name}</h3>
-                     <p style="margin-bottom:10px; color: #aa9c84; font-size:0.9rem;">Material: ${item.category} | Type: ${item.type}</p>
+                     <p style="margin-bottom:10px; color: #aa9c84; font-size:0.9rem;">Type: ${item.type}</p>
                      <div class="product-price" style="margin-bottom:15px; font-weight:bold; font-size: 1.2rem;">₹${item.price}</div>
                      <button class="btn-add-cart add-to-cart-btn" style="width:100%;">Add to Cart</button>
                    </div>
                  </div>
                `).join('');
 
-                            // Re-attach Add to Cart handlers manually
-                            const newBtns = grid.querySelectorAll('.add-to-cart-btn');
-                            newBtns.forEach(btn => {
-                                btn.addEventListener('click', function (e) {
-                                    e.preventDefault();
-                                    const card = this.closest('.product-card');
-                                    const name = card.querySelector('h3').textContent;
-                                    const priceText = card.querySelector('.product-price').textContent;
-                                    const price = parseFloat(priceText.replace('₹', '').replace(/,/g, ''));
-
-                                    const cartRaw = localStorage.getItem('rasa_cart');
-                                    let cart = cartRaw ? JSON.parse(cartRaw) : [];
-
-                                    const existing = cart.find(i => i.name === name);
-                                    if (existing) {
-                                        existing.quantity += 1;
-                                    } else {
-                                        cart.push({ name: name, price: price, image: 'assets/img/prod_brass_thali.png', quantity: 1 });
-                                    }
-                                    localStorage.setItem('rasa_cart', JSON.stringify(cart));
-
-                                    // update cart icon badge
-                                    const cartIconBadge = document.getElementById('cartCount');
-                                    if (cartIconBadge) {
-                                        cartIconBadge.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
-                                        cartIconBadge.style.transform = 'scale(1.5)';
-                                        cartIconBadge.style.color = 'var(--color-accent-gold)';
-                                        setTimeout(() => { cartIconBadge.style.transform = 'scale(1)'; cartIconBadge.style.color = ''; }, 300);
-                                    }
-
-                                    this.textContent = 'Added!';
-                                    setTimeout(() => this.textContent = 'Add to Cart', 1500);
-                                });
-                            });
+                            // Add to cart handled by event delegation in script.js
 
                         } else {
                             grid.innerHTML = '<p class="text-center" style="grid-column: 1/-1;">No products found in this category yet.</p>';
@@ -121,6 +84,7 @@
                     });
             }, 50);
         });
+    </script>
     </script>
 </body>
 

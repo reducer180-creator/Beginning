@@ -93,7 +93,10 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
       <div class="cart-summary-footer">
         <h2 class="cart-total-text">Total: <span class="text-gold">₹${subtotal}</span></h2>
-        <button class="btn btn-outline" onclick="clearCart()">Clear Cart</button>
+        <div>
+          <a href="checkout.html" class="btn btn-dark" style="margin-right: 1rem;">Proceed to Checkout</a>
+          <button class="btn btn-outline" onclick="clearCart()">Clear Cart</button>
+        </div>
       </div>
     `;
 

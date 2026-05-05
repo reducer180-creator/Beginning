@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout | Rasa</title>
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .checkout-container {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 3rem;
+      margin-top: 2rem;
+    }
+    .checkout-form {
+      background: var(--color-bg-light);
+      padding: 2rem;
+      border-radius: 8px;
+    }
+    .form-row {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .form-group {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .form-group label {
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    .form-group input {
+      padding: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-family: inherit;
+    }
+    .order-summary {
+      background: #f9f9f9;
+      padding: 2rem;
+      border-radius: 8px;
+      height: fit-content;
+    }
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #eee;
+    }
+    .summary-total {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-top: 1rem;
+    }
+    @media (max-width: 768px) {
+      .checkout-container {
+        grid-template-columns: 1fr;
+      }
+      .form-row {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body class="theme-light light-theme product-page">
+
+<header class="navbar light-theme">
+  <div class="container nav-container">
+    <div class="logo"><a href="index.html">Rasa</a></div>
+    <div class="nav-icons">
+      <a href="cart.html">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span id="cartCount">0</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="container" style="min-height:70vh; padding:2rem 0;">
+  <h1 class="text-center" style="margin-bottom: 2rem;">Checkout</h1>
+  
+  <div class="checkout-container">
+    <div class="checkout-form">
+      <h2 style="margin-bottom: 1.5rem;">Shipping Details</h2>
+      <form id="checkoutForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" required>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" required>
+          </div>
+        </div>
+        <div class="form-group" style="margin-bottom: 1rem;">
+          <label for="address">Street Address</label>
+          <input type="text" id="address" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" id="city" required>
+          </div>
+          <div class="form-group">
+            <label for="state">State</label>
+            <input type="text" id="state" required>
+          </div>
+          <div class="form-group">
+            <label for="zip">Zip / Postal Code</label>
+            <input type="text" id="zip" required>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-dark" style="width: 100%; margin-top: 1.5rem; padding: 1rem; font-size: 1.1rem;">Place Order</button>
+      </form>
+    </div>
+
+    <div class="order-summary" id="orderSummary">
+      <h2 style="margin-bottom: 1.5rem;">Order Summary</h2>
+      <div id="summaryItems"></div>
+      <div class="summary-total">
+        <span>Total:</span>
+        <span id="summaryTotalText">₹0</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const cart = JSON.parse(localStorage.getItem("rasa_cart")) || [];
+  const summaryItems = document.getElementById("summaryItems");
+  const summaryTotalText = document.getElementById("summaryTotalText");
+  const cartCount = document.getElementById("cartCount");
+
+  if (cart.length === 0) {
+    window.location.href = 'cart.html';
+    return;
+  }
+
+  // Update cart badge
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  if (cartCount) cartCount.textContent = totalItems;
+
+  // Render Summary
+  let subtotal = 0;
+  let html = '';
+  cart.forEach(item => {
+    const itemTotal = Number(item.price) * Number(item.quantity);
+    subtotal += itemTotal;
+    html += `
+      <div class="summary-item">
+        <div>
+          <strong>${item.name}</strong> <br>
+          <small>Qty: ${item.quantity}</small>
+        </div>
+        <div>₹${itemTotal}</div>
+      </div>
+    `;
+  });
+  summaryItems.innerHTML = html;
+  summaryTotalText.textContent = `₹${subtotal}`;
+
+  // Form submission
+  const checkoutForm = document.getElementById("checkoutForm");
+  checkoutForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    
+    const submitBtn = checkoutForm.querySelector('button[type="submit"]');
+    submitBtn.textContent = "Processing...";
+    submitBtn.disabled = true;
+
+    const customer = {
+      firstName: document.getElementById("firstName").value,
+      lastName: document.getElementById("lastName").value,
+      email: document.getElementById("email").value,
+      phone: document.getElementById("phone").value,
+      address: document.getElementById("address").value,
+      city: document.getElementById("city").value,
+      state: document.getElementById("state").value,
+      zip: document.getElementById("zip").value
+    };
+
+    const orderPayload = {
+      customer: customer,
+      items: cart,
+      totalAmount: subtotal
+    };
+
+    try {
+      const response = await fetch('http://localhost:3000/api/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(orderPayload)
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Clear cart
+        localStorage.removeItem("rasa_cart");
+        // Redirect to success
+        window.location.href = `success.html?orderId=${data.orderId}`;
+      } else {
+        alert("Error placing order: " + (data.error || 'Unknown error'));
+        submitBtn.textContent = "Place Order";
+        submitBtn.disabled = false;
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Failed to connect to server.");
+      submitBtn.textContent = "Place Order";
+      submitBtn.disabled = false;
+    }
+  });
+});
+</script>
+
+</body>
+</html>

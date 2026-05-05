@@ -81,25 +81,25 @@ document.addEventListener('DOMContentLoaded', () => {
   // Init badge
   updateCartIcon();
 
-  // Add to Cart Logic
-  const addCartBtns = document.querySelectorAll('.add-to-cart-btn, .btn-add');
-
-  addCartBtns.forEach(btn => {
-    btn.addEventListener('click', function (e) {
+  // Add to Cart Logic (Event Delegation for dynamically loaded products)
+  document.body.addEventListener('click', function (e) {
+    if (e.target.classList.contains('add-to-cart-btn') || e.target.classList.contains('btn-add')) {
       e.preventDefault();
+      const btn = e.target;
 
       let productName, productPrice, productImg, quantity;
 
       // Extract details depending on the page structure
-      const productCard = this.closest('.product-card');
-      const productDetails = this.closest('.product-details') || document.querySelector('.product-details');
+      const productCard = btn.closest('.product-card');
+      const productDetails = btn.closest('.product-details') || document.querySelector('.product-details');
 
       if (productCard) {
-        // This is index.html
+        // This is index.html or category.html
         productName = productCard.querySelector('h3').textContent.trim();
         const priceText = productCard.querySelector('.product-price').textContent;
         productPrice = parseFloat(priceText.replace('₹', '').replace(/,/g, ''));
-        productImg = productCard.querySelector('img').src;
+        const imgElement = productCard.querySelector('img');
+        productImg = imgElement ? imgElement.src : 'assets/img/prod_brass_thali.png';
         quantity = 1;
       } else if (productDetails) {
         // This is product.html
@@ -139,22 +139,22 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       // Visual feedback on button
-      const originalText = this.textContent;
-      this.textContent = 'Added!';
+      const originalText = btn.textContent;
+      btn.textContent = 'Added!';
 
-      if (this.classList.contains('btn-add-cart')) {
-        this.style.backgroundColor = 'var(--color-accent-gold)';
-        this.style.color = 'var(--color-primary-dark)';
+      if (btn.classList.contains('btn-add-cart')) {
+        btn.style.backgroundColor = 'var(--color-accent-gold)';
+        btn.style.color = 'var(--color-primary-dark)';
       }
 
       setTimeout(() => {
-        this.textContent = originalText;
-        if (this.classList.contains('btn-add-cart')) {
-          this.style.backgroundColor = '';
-          this.style.color = '';
+        btn.textContent = originalText;
+        if (btn.classList.contains('btn-add-cart')) {
+          btn.style.backgroundColor = '';
+          btn.style.color = '';
         }
       }, 1500);
-    });
+    }
   });
 
   // Product Page Quantity Selector
@@ -180,11 +180,42 @@ document.addEventListener('DOMContentLoaded', () => {
   categoryCards.forEach(card => {
     card.addEventListener('click', (e) => {
       e.preventDefault();
-      const categoryName = card.querySelector('h3').textContent.trim();
-
-      // Navigate to the full category page
-      window.location.href = `category.html?name=${encodeURIComponent(categoryName)}`;
+      const href = card.getAttribute('href');
+      if (href && href.includes('category.html')) {
+        window.location.href = href;
+      }
     });
   });
 
+  // Fetch Featured Products for index.html
+  const featuredProductGrid = document.getElementById('featuredProductGrid');
+  if (featuredProductGrid) {
+    fetch('http://localhost:3000/api/products')
+      .then(res => res.json())
+      .then(data => {
+        // Just take the first 4 for the homepage
+        const featured = data.slice(0, 4);
+        featuredProductGrid.innerHTML = featured.map(item => `
+          <div class="product-card">
+            <a href="product.html?id=${item.id}">
+              <div class="product-image hover-zoom">
+                <!-- Using placeholder images or logic for real images based on item.type could be added here -->
+                <img src="assets/img/prod_brass_thali.png" alt="${item.name}">
+              </div>
+            </a>
+            <div class="product-info">
+              <a href="product.html?id=${item.id}"><h3>${item.name}</h3></a>
+              <div class="product-price">₹${item.price.toLocaleString('en-IN')}</div>
+              <button class="btn-add-cart add-to-cart-btn">Add to Cart</button>
+            </div>
+          </div>
+        `).join('');
+      })
+      .catch(err => {
+        console.error("Failed to load featured products:", err);
+        featuredProductGrid.innerHTML = '<p class="text-center text-red" style="grid-column: 1/-1;">Failed to connect to backend server on port 3000...</p>';
+      });
+  }
+
 });
+

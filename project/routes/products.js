@@ -1,33 +1,50 @@
 const express = require('express');
 const router = express.Router();
-const products = require('../data/products');
+const Product = require('../models/Product');
 
 // get all products
-router.get('/', (req, res) => {
-    res.json(products);
+router.get('/', async (req, res) => {
+    try {
+        const products = await Product.find();
+        res.json(products);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
-// filter by category (brass, bronze)
-router.get('/category/:category', (req, res) => {
-    const filtered = products.filter(
-        p => p.category === req.params.category
-    );
-    res.json(filtered);
+// filter by category name (Daily Use, Kitchen Essentials, etc)
+router.get('/category/:categoryName', async (req, res) => {
+    try {
+        const categoryName = decodeURIComponent(req.params.categoryName);
+        // Use a case-insensitive regex for category matching
+        const products = await Product.find({ 
+            category: { $regex: new RegExp(`^${categoryName}$`, 'i') } 
+        });
+        res.json(products);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
-// filter by type (statue, cookware)
-router.get('/type/:type', (req, res) => {
-    const filtered = products.filter(
-        p => p.type === req.params.type
-    );
-    res.json(filtered);
+// filter by type (statue, cookware, serving, decor)
+router.get('/type/:type', async (req, res) => {
+    try {
+        const products = await Product.find({ type: req.params.type });
+        res.json(products);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
 // filter by price
-router.get('/price/:price', (req, res) => {
-    const price = parseInt(req.params.price);
-    const filtered = products.filter(p => p.price <= price);
-    res.json(filtered);
+router.get('/price/:price', async (req, res) => {
+    try {
+        const price = parseInt(req.params.price);
+        const products = await Product.find({ price: { $lte: price } });
+        res.json(products);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
 module.exports = router;
