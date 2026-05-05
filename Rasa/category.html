@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category | Rasa</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="theme-dark dark-theme">
+    <!-- Minimal Header -->
+    <header class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="logo"><a href="index.html">Rasa</a></div>
+            <div class="nav-icons">
+                <a href="cart.html" aria-label="Cart"><i class="fa-solid fa-cart-shopping"></i> <span
+                        id="cartCount">0</span></a>
+            </div>
+        </div>
+    </header>
+
+    <section class="section-padding" style="margin-top: 100px; min-height: 50vh;">
+        <div class="container">
+            <h2 class="section-title text-center text-gold" id="categoryTitle">Loading...</h2>
+            <div style="margin-bottom: 2rem; text-align: center;">
+                <a href="index.html" class="btn btn-outline" style="padding: 0.5rem 1.5rem;">&larr; Back to Home</a>
+            </div>
+            <div class="product-grid" id="categoryProductGrid">
+                <!-- Products will be injected here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container fade-in-up">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo"><a href="index.html">Rasa</a></div>
+                    <p>Crafting pure brass, copper, and beautiful kitchenware for the modern, mindful home.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Small timeout to ensure script.js runs first and sets up cart
+            setTimeout(() => {
+                const params = new URLSearchParams(window.location.search);
+                const categoryName = params.get('name') || 'Products';
+                document.getElementById('categoryTitle').textContent = categoryName;
+
+                // Fetch products for this category
+                const endpoint = `http://localhost:3000/api/products/category/${encodeURIComponent(categoryName)}`;
+
+                fetch(endpoint)
+                    .then(res => res.json())
+                    .then(data => {
+                        const grid = document.getElementById('categoryProductGrid');
+                        if (data.length > 0) {
+                            grid.innerHTML = data.map(item => `
+                 <div class="product-card" style="padding:20px; border:1px solid rgba(212, 175, 55, 0.2);">
+                   <div class="product-info">
+                     <h3 style="color:#d4af37; margin-bottom:5px;">${item.name}</h3>
+                     <p style="margin-bottom:10px; color: #aa9c84; font-size:0.9rem;">Type: ${item.type}</p>
+                     <div class="product-price" style="margin-bottom:15px; font-weight:bold; font-size: 1.2rem;">₹${item.price}</div>
+                     <button class="btn-add-cart add-to-cart-btn" style="width:100%;">Add to Cart</button>
+                   </div>
+                 </div>
+               `).join('');
+
+                            // Add to cart handled by event delegation in script.js
+
+                        } else {
+                            grid.innerHTML = '<p class="text-center" style="grid-column: 1/-1;">No products found in this category yet.</p>';
+                        }
+                    })
+                    .catch(err => {
+                        document.getElementById('categoryProductGrid').innerHTML = '<p class="text-center text-red" style="grid-column: 1/-1;">Failed to connect to backend server on port 3000...</p>';
+                    });
+            }, 50);
+        });
+    </script>
+    </script>
+</body>
+
+</html>

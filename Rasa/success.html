@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Success | Rasa</title>
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .success-container {
+      text-align: center;
+      max-width: 600px;
+      margin: 4rem auto;
+      padding: 3rem;
+      background: var(--color-bg-light);
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+    .success-icon {
+      font-size: 5rem;
+      color: #2e7d32;
+      margin-bottom: 1.5rem;
+    }
+    .order-ref {
+      font-family: monospace;
+      background: #eee;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      font-size: 1.1rem;
+      margin: 1.5rem 0;
+      display: inline-block;
+    }
+  </style>
+</head>
+
+<body class="theme-light light-theme product-page">
+
+<header class="navbar light-theme">
+  <div class="container nav-container">
+    <div class="logo"><a href="index.html">Rasa</a></div>
+    <div class="nav-icons">
+      <a href="cart.html">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span id="cartCount">0</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="container" style="min-height:70vh;">
+  <div class="success-container fade-in-up">
+    <i class="fa-solid fa-circle-check success-icon"></i>
+    <h1 style="margin-bottom: 1rem;">Thank you for your order!</h1>
+    <p>Your order has been placed successfully and is now being processed.</p>
+    
+    <div>
+      <span class="order-ref" id="orderRefDisplay">Order ID: Loading...</span>
+    </div>
+
+    <p style="margin-bottom: 2rem;">You will receive an email confirmation shortly with your order details.</p>
+
+    <a href="index.html" class="btn btn-dark">Continue Shopping</a>
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const orderId = urlParams.get('orderId');
+  const orderRefDisplay = document.getElementById('orderRefDisplay');
+
+  if (orderId) {
+    orderRefDisplay.textContent = `Order ID: ${orderId.substring(orderId.length - 8).toUpperCase()}`;
+  } else {
+    orderRefDisplay.textContent = `Order Ref: ${Math.floor(Math.random() * 10000000).toString()}`;
+  }
+});
+</script>
+
+</body>
+</html>
