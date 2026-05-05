@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pure Copper Water Jug | Rasa Form</title>
+  <meta name="description" content="Buy the pure copper water jug by Rasa. Handcrafted, high-quality, and packed with Ayurvedic benefits.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-light light-theme product-page">
+
+  <!-- Header (Light theme overriding styles) -->
+  <header class="navbar light-theme" id="navbar">
+    <div class="container nav-container">
+      <div class="nav-toggle" id="navToggle">
+        <i class="fa-solid fa-bars fa-lg"></i>
+      </div>
+      <div class="logo">
+        <a href="index.html">Rasa</a>
+      </div>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html#categories">Shop</a>
+        <a href="index.html#heritage">Heritage</a>
+        <a href="index.html#benefits">Ayurveda</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+      <div class="nav-icons">
+        <a href="#" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></a>
+        <a href="#" aria-label="User Account"><i class="fa-regular fa-user"></i></a>
+        <a href="cart.html" aria-label="Cart"><i class="fa-solid fa-cart-shopping"></i> <span id="cartCount" style="font-size: 0.8rem; vertical-align: top;">0</span></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Product Container -->
+  <div class="container product-container fade-in-up">
+    <!-- Image Gallery -->
+    <div class="product-gallery">
+      <div class="main-image">
+        <img id="mainImage" src="assets/img/prod_copper_jug.png" alt="Pure Copper Water Jug Main">
+      </div>
+      <div class="thumbnail-images">
+        <div class="thumbnail active" onclick="changeImage('assets/img/prod_copper_jug.png', this)">
+          <img src="assets/img/prod_copper_jug.png" alt="Thumb 1">
+        </div>
+        <div class="thumbnail" onclick="changeImage('assets/img/cat_copper.png', this)">
+          <img src="assets/img/cat_copper.png" alt="Thumb 2">
+        </div>
+        <div class="thumbnail" onclick="changeImage('assets/img/cat_brass.png', this)">
+          <img src="assets/img/cat_brass.png" alt="Thumb 3">
+        </div>
+        <div class="thumbnail" onclick="changeImage('assets/img/cat_kitchenware.png', this)">
+          <img src="assets/img/cat_kitchenware.png" alt="Thumb 4">
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Details -->
+    <div class="product-details">
+      <span class="product-badge">Best Seller</span>
+      <h1 class="product-title">Pure Copper Water Jug</h1>
+      <div class="product-price-large">₹2,499</div>
+      
+      <p class="product-description">
+        Experience the ancient wisdom of Ayurveda with our Pure Copper Water Jug. Handcrafted by master artisans ensuring 100% purity, this elegant piece not only sits beautifully on your dining table but also naturally purifies and positively charges your drinking water.
+      </p>
+
+      <div class="product-meta">
+        <div class="meta-item">
+          <span class="meta-label">Material:</span>
+          <span class="meta-value">100% Pure Copper</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Capacity:</span>
+          <span class="meta-value">1.5 Liters</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Weight:</span>
+          <span class="meta-value">850 grams</span>
+        </div>
+      </div>
+
+      <div class="product-actions">
+        <div class="quantity-selector">
+          <button class="qty-btn" id="decreaseQty">-</button>
+          <input type="number" id="qtyInput" class="qty-input" value="1" min="1">
+          <button class="qty-btn" id="increaseQty">+</button>
+        </div>
+        <button class="btn-add add-to-cart-btn">Add to Cart</button>
+        <button class="btn-buy">Buy It Now</button>
+      </div>
+
+      <!-- Accordion for more details -->
+      <div class="product-accordion">
+        <div class="accordion-item">
+          <div class="accordion-header active" onclick="toggleAccordion(this)">
+            <span>Usage & Ayurvedic Benefits</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="accordion-content" style="max-height: 200px;">
+            <p>Storing water in a copper vessel creates a natural purification process. It can kill all the microorganisms, molds, fungi, algae and bacteria, present in the water that could be harmful to the body. Copper is also an essential trace mineral that is vital to human health, aiding digestion and boosting the immune system.</p>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>Care Instructions</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="accordion-content">
+            <p>To clean your copper jug, rub the surface with a mixture of lemon juice and salt, then rinse thoroughly. Avoid using abrasive scrubbers as they can scratch the soft metal. Copper naturally oxidizes and tarnishes over time—regular specific cleaning will maintain its shine.</p>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>Shipping & Returns</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="accordion-content">
+            <p>Free standard shipping on all orders over ₹2000. Express shipping is available at checkout. We offer a 15-day return policy for unused items in their original packaging.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Related Products (Minimal layout) -->
+  <section class="related-products section-padding">
+    <div class="container fade-in-up">
+      <h2 class="section-title text-center" style="font-size: 2rem; color: #0b0b0b;">You May Also Like</h2>
+      <div class="product-grid" style="grid-template-columns: repeat(4, 1fr);">
+        <div class="product-card" style="box-shadow: none;">
+          <a href="#"><div class="product-image hover-zoom"><img src="assets/img/cat_copper.png" alt="Copper Pan"></div></a>
+          <div class="product-info">
+            <a href="#"><h3>Handcrafted Copper Pan</h3></a>
+            <div class="product-price">₹3,299</div>
+          </div>
+        </div>
+        <div class="product-card" style="box-shadow: none;">
+          <a href="#"><div class="product-image hover-zoom"><img src="assets/img/prod_brass_thali.png" alt="Brass Thali"></div></a>
+          <div class="product-info">
+            <a href="#"><h3>Royal Brass Thali Set</h3></a>
+            <div class="product-price">₹4,999</div>
+          </div>
+        </div>
+        <div class="product-card" style="box-shadow: none;">
+          <a href="#"><div class="product-image hover-zoom"><img src="assets/img/prod_kitchenware_set.png" alt="Kitchenware Set"></div></a>
+          <div class="product-info">
+            <a href="#"><h3>Premium Kitchenware Set</h3></a>
+            <div class="product-price">₹8,499</div>
+          </div>
+        </div>
+        <div class="product-card" style="box-shadow: none;">
+          <a href="#"><div class="product-image hover-zoom"><img src="assets/img/cat_brass.png" alt="Brass Cup"></div></a>
+          <div class="product-info">
+            <a href="#"><h3>Engraved Brass Tumbler</h3></a>
+            <div class="product-price">₹899</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Clean Footer for Product Page -->
+  <footer id="contact" style="background-color: #0b0b0b;">
+    <div class="container fade-in-up">
+      <div class="footer-bottom" style="border-top: none; padding-top: 1rem; padding-bottom: 2rem;">
+        <p style="color: #666;">&copy; 2024 Rasa Traditional Elements. All Rights Reserved.</p>
+        <div class="payment-icons" style="color: #666;">
+          <i class="fa-brands fa-cc-visa"></i>
+          <i class="fa-brands fa-cc-mastercard"></i>
+          <i class="fa-brands fa-cc-amex"></i>
+          <i class="fa-brands fa-cc-paypal"></i>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Specific logic for product page (Image swap)
+    function changeImage(src, element) {
+      document.getElementById('mainImage').src = src;
+      
+      // Update active state on thumbnails
+      var thumbnails = document.querySelectorAll('.thumbnail');
+      thumbnails.forEach(function(thumb) {
+        thumb.classList.remove('active');
+      });
+      element.classList.add('active');
+    }
+
+    // specific logic for product accordion
+    function toggleAccordion(element) {
+      // Close others
+      let allHeaders = document.querySelectorAll('.accordion-header');
+      let allContents = document.querySelectorAll('.accordion-content');
+      
+      allHeaders.forEach(header => {
+        if (header !== element && header.classList.contains('active')) {
+          header.classList.remove('active');
+          header.nextElementSibling.style.maxHeight = null;
+        }
+      });
+
+      element.classList.toggle('active');
+      var content = element.nextElementSibling;
+      if (content.style.maxHeight) {
+        content.style.maxHeight = null;
+      } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+      }
+    }
+  </script>
+</body>
+</html>

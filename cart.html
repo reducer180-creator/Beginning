@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Cart | Rasa</title>
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="theme-light light-theme product-page">
+
+<header class="navbar light-theme">
+  <div class="container nav-container">
+    <div class="logo"><a href="index.html">Rasa</a></div>
+    <div class="nav-icons">
+      <a href="cart.html">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span id="cartCount">0</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="container" style="min-height:60vh; padding:2rem 0;">
+  <h1 class="text-center">Shopping Cart</h1>
+  <div id="cartContent"></div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const cartContent = document.getElementById("cartContent");
+
+  function getCart() {
+    return JSON.parse(localStorage.getItem("rasa_cart")) || [];
+  }
+
+  function saveCart(cart) {
+    localStorage.setItem("rasa_cart", JSON.stringify(cart));
+  }
+
+  function updateBadge() {
+    const cart = getCart();
+    const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const badge = document.getElementById("cartCount");
+    if (badge) badge.textContent = count;
+  }
+
+  function renderCart() {
+    const cart = getCart();
+
+    if (cart.length === 0) {
+      cartContent.innerHTML = `
+        <div style="text-align:center; padding:3rem;">
+          <h2>Your Cart is Empty</h2>
+          <a href="index.html" class="btn btn-dark">Shop Now</a>
+        </div>
+      `;
+      updateBadge();
+      return;
+    }
+
+    let html = `<div class="cart-grid">`;
+    let subtotal = 0;
+
+    cart.forEach((item, index) => {
+      const price = Number(item.price);   // FIX: ensure number
+      const qty = Number(item.quantity);
+
+      const itemTotal = price * qty;
+      subtotal += itemTotal;
+
+      html += `
+        <div class="cart-item">
+          <p class="cart-product-name">${item.name}</p>
+          <p class="cart-product-price">₹${price}</p>
+
+          <div class="quantity-selector">
+            <button class="qty-btn" onclick="updateItem(${index}, -1)">-</button>
+            <span class="qty-value">${qty}</span>
+            <button class="qty-btn" onclick="updateItem(${index}, 1)">+</button>
+          </div>
+
+          <p class="cart-product-total">₹${itemTotal}</p>
+          <button class="btn-remove" onclick="removeItem(${index})" title="Remove Item"><i class="fa-solid fa-trash-can"></i></button>
+        </div>
+      `;
+    });
+
+    html += `
+      </div>
+      <div class="cart-summary-footer">
+        <h2 class="cart-total-text">Total: <span class="text-gold">₹${subtotal}</span></h2>
+        <div>
+          <a href="checkout.html" class="btn btn-dark" style="margin-right: 1rem;">Proceed to Checkout</a>
+          <button class="btn btn-outline" onclick="clearCart()">Clear Cart</button>
+        </div>
+      </div>
+    `;
+
+    cartContent.innerHTML = html;
+    updateBadge();
+  }
+
+  // GLOBAL FUNCTIONS
+  window.updateItem = (index, change) => {
+    let cart = getCart();
+
+    if (cart[index]) {
+      cart[index].quantity += change;
+
+      if (cart[index].quantity <= 0) {
+        cart.splice(index, 1);
+      }
+
+      saveCart(cart);
+      renderCart();
+    }
+  };
+
+  window.removeItem = (index) => {
+    let cart = getCart();
+    cart.splice(index, 1);
+    saveCart(cart);
+    renderCart();
+  };
+
+  window.clearCart = () => {
+    localStorage.removeItem("rasa_cart");
+    renderCart();
+  };
+
+  renderCart();
+});
+</script>
+
+</body>
+</html>

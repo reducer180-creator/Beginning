@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rasa | Premium Indian Traditional Utensils</title>
+  <meta name="description" content="Discover premium traditional Indian utensils made of brass, copper, and kitchenware by Rasa. Crafted in tradition, designed for modern living.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-dark dark-theme">
+
+  <!-- Header -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-container">
+      <div class="nav-toggle" id="navToggle">
+        <i class="fa-solid fa-bars fa-lg"></i>
+      </div>
+      <div class="logo">
+        <a href="index.html">Rasa</a>
+      </div>
+      <nav class="nav-links" id="navLinks">
+        <a href="#categories">Shop</a>
+        <a href="#heritage">Heritage</a>
+        <a href="#benefits">Ayurveda</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="nav-icons">
+        <a href="#" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></a>
+        <a href="#" aria-label="User Account"><i class="fa-regular fa-user"></i></a>
+        <a href="cart.html" aria-label="Cart"><i class="fa-solid fa-cart-shopping"></i> <span id="cartCount" style="font-size: 0.8rem; vertical-align: top;">0</span></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <!-- Using a premium dark ambiance image for copper/brass -->
+    <img src="assets/img/hero.png" alt="Premium Brass and Copper Utensils" class="hero-bg">
+    <div class="hero-content fade-in-up">
+      <h1 class="hero-title text-gold">Crafted in Tradition</h1>
+      <p class="hero-subtitle">Designed for Modern Living. Rediscover the purity of Brass, Copper, and Silver.</p>
+      <a href="#categories" class="btn btn-primary">Explore Collection</a>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section id="categories" class="categories section-padding">
+    <div class="container fade-in-up">
+      <h2 class="section-title text-center text-gold">Shop by Category</h2>
+
+      <!-- Minimal Material Filter Bar -->
+      <div class="material-filter-bar">
+        <button class="material-filter-btn active">Copper</button>
+        <button class="material-filter-btn">Brass</button>
+        <button class="material-filter-btn">Bronze</button>
+        <button class="material-filter-btn">Kitchenware</button>
+        <button class="material-filter-btn">Sculptures / Murti</button>
+      </div>
+
+      <!-- User-Based Categories Grid -->
+      <div class="categories-grid user-category-grid">
+        <a href="category.html?name=Daily Use" class="category-card hover-zoom">
+          <img src="assets/img/prod_copper_jug.png" alt="Daily Use">
+          <h3 class="category-title">Daily Use</h3>
+        </a>
+        <a href="category.html?name=Kitchen Essentials" class="category-card hover-zoom">
+          <img src="assets/img/cat_kitchenware.png" alt="Kitchen Essentials">
+          <h3 class="category-title">Kitchen Essentials</h3>
+        </a>
+        <a href="category.html?name=Dining & Serving" class="category-card hover-zoom">
+          <img src="assets/img/prod_brass_thali.png" alt="Dining & Serving">
+          <h3 class="category-title">Dining & Serving</h3>
+        </a>
+        <a href="category.html?name=Gifting" class="category-card hover-zoom">
+          <img src="assets/img/cat_copper.png" alt="Gifting">
+          <h3 class="category-title">Gifting</h3>
+        </a>
+        <a href="category.html?name=Pooja & Rituals" class="category-card hover-zoom">
+          <img src="assets/img/cat_brass.png" alt="Pooja & Rituals">
+          <h3 class="category-title">Pooja & Rituals</h3>
+        </a>
+        <a href="category.html?name=Home Decor" class="category-card hover-zoom">
+          <img src="assets/img/prod_silver_bowls.png" alt="Home Decor">
+          <h3 class="category-title">Home Decor</h3>
+        </a>
+        <!-- Premium Collection spanning full width smoothly -->
+        <a href="category.html?name=Premium Collection" class="category-card hover-zoom premium-collection">
+          <img src="assets/img/hero.png" alt="Premium Collection">
+          <h3 class="category-title text-gold">Premium Collection</h3>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products -->
+  <section class="featured-products section-padding">
+    <div class="container fade-in-up">
+      <h2 class="section-title text-center text-gold">Featured Pieces</h2>
+      <div class="product-grid" id="featuredProductGrid">
+        <!-- Products will be injected here dynamically -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Story Section -->
+  <section id="heritage" class="story">
+    <div class="story-content fade-in-up">
+      <h2 class="section-title text-gold">Our Heritage</h2>
+      <p>Rooted in centuries of Indian artisanship, Rasa brings you the finest handcrafted brass, copper, and premium kitchenware. We collaborate directly with master craftsmen whose skills have been passed down through generations, ensuring every piece reflects pure devotion and uncompromised quality.</p>
+      <p>More than just homeware, we preserve legacy. Each utensil is forged with precision, honoring the ancient Ayurvedic wisdom that recognized the profound health benefits of these metals.</p>
+      <a href="#" class="btn btn-outline">Read Our Story</a>
+    </div>
+    <div class="story-image">
+      <img src="https://images.unsplash.com/photo-1542478563-3882aedda2de?auto=format&fit=crop&q=80&w=1200" alt="Indian artisan crafting metal">
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section id="benefits" class="features section-padding">
+    <div class="container fade-in-up">
+      <h2 class="section-title text-center text-gold">Why Choose Us</h2>
+      <div class="features-grid">
+        <div class="feature-item">
+          <i class="fa-solid fa-gem"></i>
+          <h3>100% Pure Metal</h3>
+          <p>Unadulterated brass, copper, and silver sourced authentically.</p>
+        </div>
+        <div class="feature-item">
+          <i class="fa-solid fa-hammer"></i>
+          <h3>Handcrafted</h3>
+          <p>Made by traditional artisans, ensuring uniqueness in every piece.</p>
+        </div>
+        <div class="feature-item">
+          <i class="fa-solid fa-leaf"></i>
+          <h3>Ayurvedic Benefits</h3>
+          <p>Boosts immunity and metabolism as per ancient wisdom.</p>
+        </div>
+        <div class="feature-item">
+          <i class="fa-solid fa-recycle"></i>
+          <h3>Sustainable</h3>
+          <p>Durable, heirloom-quality pieces that last generations.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="section-padding">
+    <div class="container fade-in-up">
+      <h2 class="section-title text-center text-gold">Words of Pride</h2>
+      <!-- Simplified review cards -->
+      <div class="features-grid" style="grid-template-columns: repeat(3, 1fr) !important; max-width: 1000px; margin: 0 auto;">
+        <div class="product-card" style="padding: 2rem;">
+          <div class="text-gold" style="margin-bottom: 1rem;">
+             <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p style="font-style: italic; margin-bottom: 1rem; color: #ccc;">"The copper water dispenser I bought is absolutely stunning. The craftsmanship is visible, and the water naturally tastes better."</p>
+          <h4 style="font-family: var(--font-sans);">— Ananya P.</h4>
+        </div>
+        <div class="product-card" style="padding: 2rem;">
+          <div class="text-gold" style="margin-bottom: 1rem;">
+             <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p style="font-style: italic; margin-bottom: 1rem; color: #ccc;">"Gifted the brass thali set to my parents for their anniversary. They were amazed by the weight and royal finish. Pure nostalgia!"</p>
+          <h4 style="font-family: var(--font-sans);">— Rohan K.</h4>
+        </div>
+        <div class="product-card" style="padding: 2rem;">
+          <div class="text-gold" style="margin-bottom: 1rem;">
+             <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p style="font-style: italic; margin-bottom: 1rem; color: #ccc;">"Rasa is bringing back forgotten traditions beautifully. The kitchenware set added such elegance to my festive dining table."</p>
+          <h4 style="font-family: var(--font-sans);">— Meera S.</h4>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact">
+    <div class="container fade-in-up">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo"><a href="index.html">Rasa</a></div>
+          <p>Crafting pure brass, copper, and beautiful kitchenware for the modern, mindful home.</p>
+          <div class="footer-social">
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-pinterest-p"></i></a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4 class="footer-heading">Shop</h4>
+          <ul>
+            <li><a href="#">Brass Collection</a></li>
+            <li><a href="product.html">Copper Collection</a></li>
+            <li><a href="#">Kitchenware Collection</a></li>
+            <li><a href="#">New Arrivals</a></li>
+            <li><a href="#">Best Sellers</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4 class="footer-heading">About</h4>
+          <ul>
+            <li><a href="#">Our Story</a></li>
+            <li><a href="#">The Artisans</a></li>
+            <li><a href="#">Ayurveda Benefits</a></li>
+            <li><a href="#">Journal</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4 class="footer-heading">Support</h4>
+          <ul>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Shipping & Returns</a></li>
+            <li><a href="#">Care Instructions</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 Rasa Traditional Elements. All Rights Reserved.</p>
+        <div class="payment-icons">
+          <i class="fa-brands fa-cc-visa"></i>
+          <i class="fa-brands fa-cc-mastercard"></i>
+          <i class="fa-brands fa-cc-amex"></i>
+          <i class="fa-brands fa-cc-paypal"></i>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
